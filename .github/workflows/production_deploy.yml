@@ -12,20 +12,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          # fetch-depth: 0
+          fetch-depth: 0
           ref: main
-      - name: Reset main branch
-        run: |
-          git fetch origin staging:staging
-          git reset --hard staging
+      # - name: Reset main branch
+      #   run: |
+      #     git fetch origin staging:staging
+      #     git reset --hard staging
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           branch: auto-merge/staging-to-main
-          # token: ${{ secrets.GITHUB_TOKEN }}
-          # title: 'Auto-merge staging into main'
-          # body: 'Automated pull request to merge staging into main.'
-          # labels: 'auto-merge'
+          title: 'Auto-merge staging into main'
+          body: 'Automated pull request to merge staging into main.'
+          labels: 'auto-merge'
 
   # wait_for_merge:
   #   needs: create_pull_request
