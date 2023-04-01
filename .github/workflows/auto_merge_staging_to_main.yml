@@ -28,7 +28,7 @@ jobs:
       - name: Enable Pull Request Automerge
         run: gh pr merge --merge --auto "${{ github.event.pull_request.number }}"
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   wait_for_merge:
     environment: Prod
