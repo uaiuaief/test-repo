@@ -27,6 +27,7 @@ jobs:
           labels: 'auto-merge'
 
   wait_for_merge:
+    environment: Prod
     needs: create-pull-request
     runs-on: ubuntu-latest
     steps:
