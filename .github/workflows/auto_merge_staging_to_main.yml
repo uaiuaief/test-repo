@@ -1,0 +1,44 @@
+name: Auto merge staging into main
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+      - name: Reset main branch
+        run: |
+          git fetch origin staging:staging
+          git reset --hard staging
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: auto-merge/staging-to-main
+          title: 'Auto-merge staging into main'
+          body: 'Automated pull request to merge staging into main.'
+          labels: 'auto-merge'
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --merge --auto "${{ github.event.pull_request.number }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  wait_for_merge:
+    environment: Prod
+    needs: create-pull-request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for PR to be merged
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'create-pull-request'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 20
