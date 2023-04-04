@@ -31,7 +31,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   wait_for_merge:
-    environment: Prod
     needs: create-pull-request
     runs-on: ubuntu-latest
     steps:
