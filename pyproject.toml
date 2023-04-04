@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "test-repo"
-version = "1.0.0"
+version = "1.1.0"
 description = ""
 authors = ["John <jhonatasbn14@gmail.com>"]
 readme = "README.md"
