@@ -25,7 +25,7 @@ if [ "$current_branch" != "main" ]; then
 fi
 
 # Merge the staging branch into main with --ff-only flag
-git merge staging --ff-only || { echo "Failed to fast-forward merge. Exiting."; exit 1; }
+git merge origin/staging --ff-only || { echo "Failed to fast-forward merge. Exiting."; exit 1; }
 
 # Get the current version from the latest tag
 current_version=$(git describe --tags --abbrev=0)
