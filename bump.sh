@@ -14,9 +14,6 @@ if [[ ! $bump_type =~ ^(major|minor|patch)$ ]]; then
     exit 1
 fi
 
-# Change to your Git repository directory
-cd /path/to/your/repo
-
 # Fetch the latest changes
 git fetch
 
